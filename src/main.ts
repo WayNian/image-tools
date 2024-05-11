@@ -1,11 +1,10 @@
-import './assets/main.css'
+import "virtual:uno.css";
+import "@unocss/reset/tailwind-compat.css";
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import App from "./App.vue";
+import router from "./router/";
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+const app = createApp(App);
 
-const app = createApp(App)
-
-app.use(createPinia())
-
-app.mount('#app')
+app.use(router).use(createPinia()).mount("#app");
