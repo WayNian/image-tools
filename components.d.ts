@@ -16,8 +16,10 @@ declare module 'vue' {
     NButton: typeof import('naive-ui')['NButton']
     NFlex: typeof import('naive-ui')['NFlex']
     NUpload: typeof import('naive-ui')['NUpload']
+    Options: typeof import('./src/components/Watermark/Options.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Setting: typeof import('./src/components/Watermark/Setting.vue')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }

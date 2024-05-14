@@ -1,13 +1,20 @@
 <template>
   <div class="flex flex-col items-center">
     <div class="w-500px h-300px">
-      <img id="img1" class="object-contain w-full h-full" alt="" srcset="" />
+      <img id="img1" class="object-contain w-full h-full" :src="url" alt="" srcset="" />
     </div>
-    <n-upload @change="handleChange">
-      <n-button>上传文件</n-button>
-    </n-upload>
+    <div class="flex flex-col items-center">
+      <n-upload @change="handleChange">
+        <n-button>上传文件</n-button>
+      </n-upload>
 
-    <div>转换</div>
+      <p>设备: {{ make }}</p>
+      <p>型号: {{ model }}</p>
+
+      <p>曝光时间: {{ exposureTime }}</p>
+      <p>光圈: {{ fNumber }}</p>
+      <p>焦距: {{ focalLength }}</p>
+    </div>
   </div>
 </template>
 
@@ -17,14 +24,25 @@ import { ref } from "vue";
 import * as ExifReader from "exifreader";
 
 const url = ref("");
+const make = ref("");
+const model = ref("");
+const exposureTime = ref("");
+const fNumber = ref("");
+const focalLength = ref("");
+
 const handleChange = async (options: { file: UploadFileInfo }) => {
   const file = options.file.file;
 
   if (!file) return;
-  //   url.value = URL.createObjectURL(file);
+  url.value = URL.createObjectURL(file);
 
-  const tags = await ExifReader.load(file);
+  const tags = await ExifReader.load(file, { length: 128 * 1024 });
   console.log("🚀 ~ handleChange ~ tags:", tags);
+  make.value = tags.Make?.description || "";
+  model.value = tags.Model?.description || "";
+  exposureTime.value = tags.ExposureTime?.description || "";
+  fNumber.value = tags.FNumber?.description || "";
+  focalLength.value = tags.FocalLength?.description || "";
   //   const img1 = document.getElementById("img1");
   //   if (!img1) return;
 
